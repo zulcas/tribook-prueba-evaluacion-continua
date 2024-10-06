@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('../views/partials/head.ejs') %>
+    
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <%- include('../views/partials/spinner.ejs') %>
+        <!-- Spinner End -->
+        <!-- Navbar Start -->
+        <%- include('../views/partials/nav.ejs') %>
+        <!-- Navbar End -->
+
+        <!--Main Apartment Presentation Start-->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center pb-3">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
+                        <!--MainPhoto Start-->
+                        <div class="about-img position-relative overflow-hidden p-5 pe-0 ">
+                            <img class="img-fluid w-100" src="<%= apartmentData.mainPhoto %>">
+                        </div>
+                        <!--MainPhoto End-->
+                    </div>
+                    <!--Main info Start-->
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeIn;">
+                        <h1 class="mb-4 fs-2"><%= apartmentData.title %></h1>
+                        <p class="mb-4"><%=apartmentData.description%></p>
+                        <p><i class="fa fa-home text-primary me-3"></i> <%=apartmentData.rooms%> habs</p>
+                        <p><i class="fa fa-bath text-primary me-3"></i> <%=apartmentData.bathrooms%> baños</p>
+                        <p><i class="fa fa-bed text-primary me-3"></i> <%=apartmentData.beds%> camas</p>
+                        <p><i class="fa fa-users text-primary me-3"></i> <%=apartmentData.maxPeople%> personas máx</p>
+                        <p><i class="fa fa-ruler-combined text-primary me-3"></i> <%=apartmentData.size%> m<sup>2</sup> </p>   
+                    </div>
+                    <!--Main End-->
+                </div>
+            </div>
+        </div>
+        <!--Main Apartment Presentation End-->
+
+
+
+        <!--Rules, services and Price/dates block Start-->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center pb-3">
+
+                    <!--Services and Rules block Start-->
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeIn;">
+                        <h2 class="mb-4 fs-4">Normas del Alojamiento</h2>
+                        <p class="mb-4"><%=apartmentData.rules%></p>
+                        <h2 class="mb-4 fs-4">Servicios</h2>
+                        <div class="pb-0 d-flex border-top gap-1 apartmentServices">
+                            <% apartmentData.services.forEach(service=>{ %>
+                                <% if (service == 'wifi') { %>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-wifi text-primary me-2"></i> WiFi</p>
+                               <% }else if (service =='kitchen'){ %>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-utensils text-primary me-2"></i> Cocina</p>
+                               <% }else if (service =='airConditioner'){%>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-snowflake text-primary me-2"></i> Aire Acondicionado</p>
+                                <% }else if (service =='adapted'){%>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-wheelchair text-primary me-2"></i> Adaptado</p>
+                                <% }else if (service =='tv'){%>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-tv text-primary me-2"></i> TV</p>
+                                <% }else if (service =='heating'){%>
+                                    <p class="flex-fill text-center border-end py-2"><i class="fas fa-fire text-primary me-2"></i> Calefacción</p>
+                                    <% } %>                             
+                           <% })%>
+
+                        </div>
+                        
+
+
+                    </div>
+                    <!--Services and Rules block End-->
+                    <!--Price and Booking block Start-->
+                    <form class="col-lg-6 flex fadeIn booking-selector" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeIn;">
+                        <!--Price-->
+                        <p class="mb-4" style="color: var(--dark)"><span class="fs-5 fw-bolder"><%= apartmentData.price %> €</span> noche</p>
+                        <!--Dates and people selector-->
+                        <div class="dates-people-selector">
+                            <!--Dates section-->
+                            <div class="dp-selector-item" >
+                                <label for="checkin" title="Fecha de llegada inválida" >Llegada</label>
+                                <input type="date" id="date-checkin" name="checkin" class="form-control border-0 py-3 mb-2" required>
+                            </div>
+                            <div class="dp-selector-item">
+                                <label for="checkout" title="Fecha de salida inválida" >Salida</label>
+                                <input type="date" id="date-checkout" name="checkout" class="form-control border-0 py-3 mb-2" required>
+                            </div>
+                            <!--People section-->
+                            <div class="dp-selector-item people-item">
+                                <label for="people" title="Introduce número de huéspedes" >Huespédes</label>
+                                <input type="number" name="people" class="form-control border-0 py-3 formSelectNumber" placeholder="huespédes" value="1" min="1" max="<%= apartmentData.maxPeople %>" required>
+                            </div>
+                        </div>
+                        <!--Booking Button Start-->
+                        <input type="submit" value="Reservar" class="btn btn-primary py-3 px-5 mt-3 booking-button" href=""></input>
+                        <!--Booking Buttond End-->
+                    </form>
+                    
+                    <!--Price and Booking block End-->
+                    
+                </div>
+            </div>
+        </div>
+        <!--Rules, services and Price/dates block End-->
+
+
+
+
+
+
+        <!--Carrousel Optional Photos Start (if exist)-->
+        <div class="container-xxl">
+            <div class="row g-5 align-items-center pb-3">
+                <div class="owl-carousel testimonial-carousel">
+                        <!--Foto1-->
+                        <div class="bg-light rounded p-3">
+                            <div class="bg-white border rounded p-4">
+                                <img class="img-fluid flex-shrink-0 rounded" src="<%= apartmentData.mainPhoto %>">
+                            </div>
+                        </div>
+    
+                        <!--Foto2-->
+                        <div class="testimonial-item bg-light rounded p-3">
+                            <div class="bg-white border rounded p-4">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid flex-shrink-0 rounded" src="<%= apartmentData.optionalPhotos[0] %>">
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!--Foto3-->
+                        <div class="testimonial-item bg-light rounded p-3">
+                            <div class="bg-white border rounded p-4">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-fluid flex-shrink-0 rounded" src="<%= apartmentData.optionalPhotos[1] %>">
+                                </div>
+                            </div>
+                        </div>
+    
+                </div>
+            </div>
+        </div>
+        <!--Carrousel Optional Photos End (if exist)-->
+
+        <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+
+       
+
+
+        <!-- Testimonial Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="mb-3">Opiniones recientes</h1>
+                    <p>En este apartado puedes encontrar algunos de los últimos comentarios de usuarios que ya han disfrutado de la experiencia de conseguir el mejor alojamiento para sus vacaciones con Tribook.</p>
+                </div>
+                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-item bg-light rounded p-3">
+                        <div class="bg-white border rounded p-4">
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <div class="d-flex align-items-center">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                                <div class="ps-3">
+                                    <h6 class="fw-bold mb-1">Client Name</h6>
+                                    <small>Profession</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+        
+
+        <!--Footer start-->
+        <%- include('../views/partials/footer.ejs') %>
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+     <%- include('../views/partials/scripts.ejs') %>
+
+</body>
+
+</html>
